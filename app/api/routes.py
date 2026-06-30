@@ -76,15 +76,7 @@ async def analyze_resume(request: AnalysisRequest, db: Session = Depends(get_db)
         created_at=analysis.created_at
     )
 
+
 @router.get("/resumes")
 async def list_resumes(db: Session = Depends(get_db)):
-    resumes = db.query(Resume).order_by(Resume.created_at.desc()).all()
-    return [
-        {
-            "id": r.id,
-            "filename": r.filename,
-            "skills_count": len(json.loads(r.extracted_skills or "[]")),
-            "created_at": r.created_at
-        }
-        for r in resumes
-    ]
+    raise HTTPException(status_code=403, detail="This endpoint is currently disabled.")
